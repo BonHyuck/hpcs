@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="col-12 row justify-content-center" style="z-index:30000;">
+  <form action="{% url 'main:create' %}" method="POST" class="mainForm col-12 row justify-content-between align-items-center">
+    {% csrf_token %}
+    <label for="content" class="col-7">글 내용 (100자 이내)</label>
+    <label for="font_size" class="col-2">글자 크기 (1~50)</label>
+    <label for="color_code" class="col-1">글자 색</label>
+    <div class="col-1"></div>
+    <input type="text" name="content" id="content" class="col-7">
+    <input type="number" name="font_size" id="font_size" class="col-2">
+    <input type="color" name="color_code" id="color_code" class="col-1">
+    <input type="submit" class="btn btn-danger col-1" value="추!석!">
+  </form>   
+ 
+</div>
+{% endblock content %}
+{% block canvas %}
+{% for article in articles %}
+  <div class="floating" id="floating_{{article.pk}}" style="top:{{article.top_gap}}%; left:{{article.left_gap}}%">
+    <p class="floatingText font-weight-bold" style="color:{{article.color_code}}; font-size:{{article.font_size}}px;">{{article.content}}</p>
+  </div>
+  {% endfor %} 
+{% endblock canvas %}
+
+
